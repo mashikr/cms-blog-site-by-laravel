@@ -29,8 +29,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
         'remember_token',
+        'active',
+        'account_active_hash'
     ];
 
     /**
@@ -41,4 +42,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function role() {
+        return $this->belongsTo('App\Models\Role');
+    }
+
+    public function photo() {
+        return $this->belongsTo('App\Models\Photo');
+    }
 }

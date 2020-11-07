@@ -36,7 +36,6 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/user', [UserController::class, 'index'])->middleware('checkLogin')->name('user');
 
 Route::get('/resetmail', function () {
     return view('Password.mail');
@@ -49,4 +48,16 @@ Route::get('/resetpassword/{token}', [PasswordController::class, 'resetpassword'
 Route::post('/setpassword', [PasswordController::class, 'setPassword'])->name('setpassword');
 Route::get('/resetpassword', function () {
     return view('Password.success');
+});
+
+
+Route::middleware('checkLogin')->group(function () {
+    Route::get('/user', [UserController::class, 'index'])->name('user');
+
+    Route::get('/user/profile', [UserController::class, 'profile'])->name('profile');
+    Route::post('/user/updatename', [UserController::class, 'updatename'])->name('updatename');
+    Route::post('/user/updatepassword', [UserController::class, 'updatepassword'])->name('updatepassword');
+    Route::post('/user/updateimage', [UserController::class, 'updateimage'])->name('updateimage');
+
+    Route::get('/user/addpost', [UserController::class, 'addpost'])->name('addpost');
 });
