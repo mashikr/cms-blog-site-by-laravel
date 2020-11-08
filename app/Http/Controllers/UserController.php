@@ -84,4 +84,9 @@ class UserController extends Controller
         User::where('email', session('user_email'))->update(['photo_id' => $photo->id]);
         return redirect('/user/profile');
     }
+
+    public function show() {
+        $users = User::where('role_id', 2)->paginate(5);
+        return view('User.show', compact('users'));
+    }
 }

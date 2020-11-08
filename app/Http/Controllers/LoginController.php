@@ -18,7 +18,7 @@ class LoginController extends Controller
         $user = User::where(['email' => $request->email, 'active' => true])->first();
 
         if (Hash::check($request->password, $user->password)) {
-           session(['user_email' => $request->email, 'role' => $user->role->name, 'name' => $user->name]);
+           session(['user_email' => $request->email, 'role' => $user->role->name, 'name' => $user->name, 'user_id' => $user->id]);
            return redirect('user');
         }
 

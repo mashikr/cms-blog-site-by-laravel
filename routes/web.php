@@ -5,7 +5,10 @@ use App\Http\Controllers\SignupController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PostsController;
 use App\Http\Middleware\checkLogin;
+use App\Http\Middleware\checkAdmin;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +61,20 @@ Route::middleware('checkLogin')->group(function () {
     Route::post('/user/updatename', [UserController::class, 'updatename'])->name('updatename');
     Route::post('/user/updatepassword', [UserController::class, 'updatepassword'])->name('updatepassword');
     Route::post('/user/updateimage', [UserController::class, 'updateimage'])->name('updateimage');
+    Route::get('/user/show', [UserController::class, 'show'])->middleware('checkAdmin')->name('usershow');
+    
+    Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
+    Route::post('/addcategory', [CategoryController::class, 'store'])->name('addcategory');
+    Route::get('/deletecategory/{id}', [CategoryController::class, 'destroy'])->name('deletecategory')->middleware('checkAdmin');
 
-    Route::get('/user/addpost', [UserController::class, 'addpost'])->name('addpost');
+    Route::get('/user/addpost', [PostsController::class, 'create'])->name('addpost');
+    Route::post('/user/addpost', [PostsController::class, 'store'])->name('storepost');
+    Route::get('/user/allpost', [PostsController::class, 'index'])->name('allpost');
+    Route::get('/user/ownpost', [PostsController::class, 'ownpost'])->middleware('checkAdmin')->name('ownpost');
+    Route::get('/user/deletepost/{post:id}', [PostsController::class, 'delete'])->name('deletepost');
+    Route::get('/user/editpost/{post:slug}', [PostsController::class, 'edit'])->name('editpost');
+    Route::post('/user/updatepost/{post:slug}', [PostsController::class, 'update'])->name('updatepost');
+    Route::get('/user/destroypost/{id}', [PostsController::class, 'destroy'])->name('removepost');
+    Route::get('/user/restorepost/{id}', [PostsController::class, 'restore'])->name('restorepost');
+    Route::get('/user/trash', [PostsController::class, 'trash'])->name('trash');
 });

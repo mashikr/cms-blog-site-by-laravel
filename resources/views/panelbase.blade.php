@@ -5,6 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         @yield('title')
+        <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
         <link href="/cms-blog/public/css/styles.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
@@ -17,7 +18,7 @@
             <!-- Navbar-->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i> {{ session()->get('name') }}</a>
+                    <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i> {{ session()->get('name') }} </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                         <a class="dropdown-item" href="{{ route('profile') }}"><i class="fas fa-user fa-fw"></i> Profile</a>
                         <div class="dropdown-divider"></div>
@@ -32,7 +33,7 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ route('user') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
@@ -44,14 +45,14 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="#">Add Post</a>
+                                <a class="nav-link" href="{{ route('addpost') }}">Add Post</a>
                                     @if(session()->get('role') == 'admin')
-                                    <a class="nav-link" href="#">Own Post</a>
+                                    <a class="nav-link" href="{{ route('ownpost') }}">Own Post</a>
                                     @endif
-                                    <a class="nav-link" href="#">All Post</a>
+                                <a class="nav-link" href="{{ route('allpost') }}">All Post</a>
                                 </nav>
                             </div>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ route('categories') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-list-ul"></i></div>
                                 Categories
                             </a>
@@ -60,11 +61,15 @@
                                 Comments
                             </a>
                             @if(session()->get('role') == 'admin')
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ route('usershow') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                                 Users
                             </a>
                             @endif
+                            <a class="nav-link" href="{{ route('trash') }}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-trash-alt"></i></div>
+                                Trash
+                            </a>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
