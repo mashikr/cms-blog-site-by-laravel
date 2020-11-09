@@ -9,6 +9,12 @@
         <link href="/cms-blog/public/css/styles.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+        <style>
+            img {
+                max-height: 50px;
+                max-width: 150px;
+            }
+        </style>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -17,6 +23,9 @@
             
             <!-- Navbar-->
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="{{ route('home') }}" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i> {{ session()->get('name') }} </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">

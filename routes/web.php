@@ -21,9 +21,8 @@ use App\Http\Middleware\checkAdmin;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [PostsController::class, 'index'])->name('home');
+Route::get('/post/{post:slug}', [PostsController::class, 'show'])->name('showpost');
 
 Route::get('/register', [SignupController::class, 'index'])->name('register');
 Route::post('/register', [SignupController::class, 'store']);
@@ -69,7 +68,7 @@ Route::middleware('checkLogin')->group(function () {
 
     Route::get('/user/addpost', [PostsController::class, 'create'])->name('addpost');
     Route::post('/user/addpost', [PostsController::class, 'store'])->name('storepost');
-    Route::get('/user/allpost', [PostsController::class, 'index'])->name('allpost');
+    Route::get('/user/allpost', [PostsController::class, 'allpost'])->name('allpost');
     Route::get('/user/ownpost', [PostsController::class, 'ownpost'])->middleware('checkAdmin')->name('ownpost');
     Route::get('/user/deletepost/{post:id}', [PostsController::class, 'delete'])->name('deletepost');
     Route::get('/user/editpost/{post:slug}', [PostsController::class, 'edit'])->name('editpost');

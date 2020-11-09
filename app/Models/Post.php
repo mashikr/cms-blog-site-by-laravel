@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Post extends Model
 {
@@ -31,6 +32,11 @@ class Post extends Model
         'content',
         'photo_id',
     ];
+
+    public function getContentLimitAttribute()
+    {
+        return Str::words($this->content, '25');
+    }
 
     public function photo() {
         return $this->belongsTo('App\Models\Photo');
