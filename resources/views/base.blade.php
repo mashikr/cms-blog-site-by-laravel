@@ -32,7 +32,10 @@
                     column-count: 3;
                 }
             }
- 
+            
+            #h-95 {
+                min-height: 75vh;
+            }
         </style>
     </head>
     <body>
@@ -58,33 +61,7 @@
                   </ul>
             </nav>
 
-            <div class="row my-4">
-                <div class="col-md-9 mb-4">
-                    @yield('content')
-                </div>
-                <div class="col-md-3 border-left">
-                    <form action="">
-                        <div class="input-group">
-                            {{ Form::text('search',"", ['placeholder' => 'Search..', 'class' => 'form-control', 'required']) }}
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
-                            </div>                            
-                        </div>
-                    </form>
-
-                    <div class="jumbotron mt-3">
-                        <h5 class="text-center border-bottom mb-2 pb-1">Categories</h5>
-
-                        @if(!$categories->isEmpty())
-                            @foreach ($categories as $category)
-                                <a href="#" class="btn btn-sm btn-light mb-2">{{ $category->category }}</a>   
-                            @endforeach
-                        @else
-                            <div class="text-center">No category available</div>
-                        @endif
-                    </div>
-                </div>
-            </div>
+            @yield('content')
 
             <footer>
                 <div class="py-2 text-center lead bg-light">Copyright &copy; Blogguru {{ date("Y") }}</div>

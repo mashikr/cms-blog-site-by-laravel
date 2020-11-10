@@ -108,7 +108,9 @@ class PostsController extends Controller
      */
     public function show(Post $post)
     {
-        return $post;
+        $categories = Category::orderBy('id', 'desc')->get();
+
+        return view('Post.show', compact('post', 'categories'));
     }
 
     /**
@@ -222,5 +224,19 @@ class PostsController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function userpost($id) {
+        $posts = Post::where('user_id', $id)->orderBy('id', 'desc')->paginate(10);
+        $categories = Category::orderBy('id', 'desc')->get();
+
+        return view('home', compact('posts', 'categories'));
+    }
+
+    public function searchpost(Request $request) {
+        $posts = Post::where('title','like', "%$request->key%")->orWhere('content','like', "%$request->key%")->orderBy('id', 'desc')->paginate(10);
+        $categories = Category::orderBy('id', 'desc')->get();
+
+        return view('home', compact('posts', 'categories'));
     }
 }

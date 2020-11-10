@@ -23,6 +23,9 @@ use App\Http\Middleware\checkAdmin;
 
 Route::get('/', [PostsController::class, 'index'])->name('home');
 Route::get('/post/{post:slug}', [PostsController::class, 'show'])->name('showpost');
+Route::get('/post/category/{category:category}', [CategoryController::class, 'categorypost'])->name('categorypost');
+Route::get('/post/user/{id}', [PostsController::class, 'userpost'])->name('userpost');
+Route::post('/post/search', [PostsController::class, 'searchpost'])->name('searchpost');
 
 Route::get('/register', [SignupController::class, 'index'])->name('register');
 Route::post('/register', [SignupController::class, 'store']);

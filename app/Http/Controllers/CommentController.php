@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use  App\Models\Category;
-use  App\Models\Post;
 
-class CategoryController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +13,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-
-        return view('Categories.index', compact('categories'));
+        //
     }
 
     /**
@@ -39,18 +34,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'category' => 'required|unique:categories'
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('/categories')
-                        ->withErrors($validator);
-        }
-        Category::create([
-            'category' => $request->category
-        ]);
-        return redirect('/categories');
+        //
     }
 
     /**
@@ -95,15 +79,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        Category::findorfail($id)->delete();
-        return redirect('/categories');
-    }
-
-    public function categorypost(Category $category) {
-        $posts = Post::where('category_id', $category->id)->orderBy('id', 'desc')->paginate(10);
-        $categories = Category::orderBy('id', 'desc')->get();
-        $current_id = $category->id;
-
-        return view('home', compact('posts','categories', 'current_id'));
+        //
     }
 }
