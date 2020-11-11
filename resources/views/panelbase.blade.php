@@ -14,6 +14,10 @@
                 max-height: 50px;
                 max-width: 150px;
             }
+
+            #card-link:hover {
+                text-decoration: none;
+            }
         </style>
     </head>
     <body class="sb-nav-fixed">
@@ -54,18 +58,18 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="{{ route('addpost') }}">Add Post</a>
+                                <a class="nav-link" href="{{ route('allpost') }}">All Post</a>
                                     @if(session()->get('role') == 'admin')
                                     <a class="nav-link" href="{{ route('ownpost') }}">Own Post</a>
                                     @endif
-                                <a class="nav-link" href="{{ route('allpost') }}">All Post</a>
+                                <a class="nav-link" href="{{ route('addpost') }}">Add Post</a>
                                 </nav>
                             </div>
                             <a class="nav-link" href="{{ route('categories') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-list-ul"></i></div>
                                 Categories
                             </a>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ route('usercomments') }}">
                                 <div class="sb-nav-link-icon"><i class="far fa-comments"></i></div>
                                 Comments
                             </a>

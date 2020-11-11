@@ -24,7 +24,7 @@
                             @foreach ($posts as $post)
                                 <tr>
                                     <th>{{ $post->id }}</th>
-                                    <td>{{ $post->title }}</td>
+                                    <td><a href="{{ route('showpost', $post->slug) }}">{{ $post->title }}</a></td>
                                     <td>{{ $post->category->category }}</td>
                                     <td><img class="mx-auto" src="/cms-blog/public/image/{{ $post->photo_id ? $post->photo->file_name : 'image-error.png' }}" alt=""></td>
                                     <td>{{ date_format(date_create($post->created_at),"d M, Y | h:iA") }}</td>

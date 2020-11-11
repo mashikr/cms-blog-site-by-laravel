@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Photo;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -109,8 +110,9 @@ class PostsController extends Controller
     public function show(Post $post)
     {
         $categories = Category::orderBy('id', 'desc')->get();
+        $comments = Comment::where('post_id', $post->id)->orderBy('id', 'desc')->get();
 
-        return view('Post.show', compact('post', 'categories'));
+        return view('Post.show', compact('post', 'categories', 'comments'));
     }
 
     /**
@@ -202,6 +204,7 @@ class PostsController extends Controller
     {
        if (session()->get('role') == 'admin' || session()->get('user_id') == $post->user_id) {
            $post->delete();
+           Comment::where('post_id', $post->id)->delete();
        }
 
        return redirect()->back();
@@ -221,6 +224,7 @@ class PostsController extends Controller
         $post = Post::withTrashed()->where('id', $id)->first();
         if (session()->get('role') == 'admin' || session()->get('user_id') == $post->user_id) {
             $post->restore();
+            Comment::where('post_id', $post->id)->restore();
         }
 
         return redirect()->back();

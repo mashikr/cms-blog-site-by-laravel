@@ -17,24 +17,30 @@
 
                     {!! $post->content !!}
 
-                        <form action="" method="post">
+                        <form action="{{ route('commentbox') }}" method="post">
                             <fieldset class="border p-2 rounded">
                                 <legend class="w-auto lead">Comment</legend>
+                                @csrf
+                                <input type="hidden" name="post_id" id="" value="{{ $post->id }}">
                                 <div class="form-group d-flex">
-                                    <textarea name="comment" id="" cols="" placeholder="Leave your comment" rows="1" class="form-control mr-2"></textarea>
+                                    <textarea name="comment" id="" cols="" placeholder="Leave your comment" rows="1" class="form-control mr-2" required></textarea>
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             </fieldset>
                         </form>
 
                         <div class="p-2 mt-4">
-                            <div class="media">
-                                <img class="mr-3" style="max-height: 64px; max-width: 64px;" src="/cms-blog/public/image/user.png" alt="Generic placeholder image">
-                                <div class="media-body">
-                                <h5 class="my-0">Media heading</h5>
-                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
-                                </div>
-                            </div>
+                            @if (!$comments->isEmpty())
+                                @foreach ($comments as $comment)
+                                    <div class="media mb-2">
+                                        <img class="mr-3" style="max-height: 64px; max-width: 64px;" src="/cms-blog/public/image/{{ $comment->author->photo->file_name }}" alt="Generic placeholder image">
+                                        <div class="media-body">
+                                        <h5 class="my-0">{{ $comment->author->name }}</h5>
+                                       {{ $comment->comment }}
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
                         </div>
                 @else
                     <div class="display-4 mt-4 text-center">No Post available</div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Photo;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -88,5 +89,10 @@ class UserController extends Controller
     public function show() {
         $users = User::where('role_id', 2)->paginate(5);
         return view('User.show', compact('users'));
+    }
+
+    public function comments() {
+        $comments = Comment::where('user_id', session('user_id'))->get();
+        return view('User.comments', compact('comments'));
     }
 }

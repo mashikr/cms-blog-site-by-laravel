@@ -45,8 +45,11 @@
                   
                   <ul class="navbar-nav flex-row ml-auto">
                         @if(session()->has('user_email'))
-                            <li class="nav-item">
+                            <li class="nav-item mr-2">
                                 <a href="{{ route('user') }}" class="nav-link">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('logout') }}" class="nav-link">Logout</a>
                             </li>
                         @else 
                             <li class="nav-item mr-2">

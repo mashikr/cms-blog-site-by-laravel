@@ -24,7 +24,7 @@
                                 <th>{{ $user->id }}</th>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td><img class="mx-auto" width="100px" src="/cms-blog/public/image/{{ $user->photo_id ? $user->photo->file_name : 'Null' }}" alt=""></td>
+                                <td><img class="mx-auto" src="/cms-blog/public/image/{{ $user->photo_id ? $user->photo->file_name : 'Null' }}" alt=""></td>
                                 <td>{{ date_format(date_create($user->created_at),"d M, Y | h:iA") }}</td>
                                 <td><a onclick="javascript: return confirm('Are sure want to delete user?')" href="#"><i class="fas fa-trash-alt text-danger"></i></a></td>
                             </tr>

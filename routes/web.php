@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\CommentController;
 use App\Http\Middleware\checkLogin;
 use App\Http\Middleware\checkAdmin;
 
@@ -64,6 +65,7 @@ Route::middleware('checkLogin')->group(function () {
     Route::post('/user/updatepassword', [UserController::class, 'updatepassword'])->name('updatepassword');
     Route::post('/user/updateimage', [UserController::class, 'updateimage'])->name('updateimage');
     Route::get('/user/show', [UserController::class, 'show'])->middleware('checkAdmin')->name('usershow');
+    Route::get('/user/comments', [UserController::class, 'comments'])->name('usercomments');
     
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
     Route::post('/addcategory', [CategoryController::class, 'store'])->name('addcategory');
@@ -79,4 +81,7 @@ Route::middleware('checkLogin')->group(function () {
     Route::get('/user/destroypost/{id}', [PostsController::class, 'destroy'])->name('removepost');
     Route::get('/user/restorepost/{id}', [PostsController::class, 'restore'])->name('restorepost');
     Route::get('/user/trash', [PostsController::class, 'trash'])->name('trash');
+
+    Route::post('/comments', [CommentController::class, 'store'])->name('commentbox');
+    Route::get('/deletecomment/{comment:id}', [CommentController::class, 'destroy'])->name('deletecomment');
 });
