@@ -86,7 +86,7 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        if ($comment->user_id == session('user_id') || session('role') == 'admin') {
+        if ($comment->user_id == session('user_id') || session('role') == 'admin' || $comment->post->author->id == session('user_id')) {
             $comment->forceDelete();
         }
         return redirect()->back();

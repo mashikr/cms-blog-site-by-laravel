@@ -25,14 +25,14 @@
                                     <td><a href="{{ route('showpost', $comment->post->slug) }}">{{ $comment->post->title }}</a></td>
                                     <td>{{ $comment->comment}}</td>
                                     <td>{{ date_format(date_create($comment->created_at),"d M, Y | h:iA") }}</td>
-                                    <td><a onclick="javascript: return confirm('Are sure want to send trash?')" href="{{ route('deletecomment', $comment->id) }}"><i class="fas fa-trash-alt text-danger"></i></a></td>
+                                    <td><a onclick="javascript: return confirm('Are you sure to delete?')" href="{{ route('deletecomment', $comment->id) }}"><i class="fas fa-trash-alt text-danger"></i></a></td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
                
-                    {{-- {{ $posts->links() }} --}}
+                    {{ $comments->links() }}
             </div>
             
         @else

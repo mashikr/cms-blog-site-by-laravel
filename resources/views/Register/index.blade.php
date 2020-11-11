@@ -1,7 +1,7 @@
 @extends('base')
 
     @section('content')
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" style="height: 83vh">
             <div class="col-sm-10 col-md-8 col-lg-6 my-4">
                 <div class="card mt-2 shadow">
                     <div class="card-header text-center">

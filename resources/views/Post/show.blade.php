@@ -23,7 +23,7 @@
                                 @csrf
                                 <input type="hidden" name="post_id" id="" value="{{ $post->id }}">
                                 <div class="form-group d-flex">
-                                    <textarea name="comment" id="" cols="" placeholder="Leave your comment" rows="1" class="form-control mr-2" required></textarea>
+                                    <input type="text" name="comment" placeholder="Leave your comment" class="form-control mr-2" required>
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             </fieldset>
@@ -36,7 +36,14 @@
                                         <img class="mr-3" style="max-height: 64px; max-width: 64px;" src="/cms-blog/public/image/{{ $comment->author->photo->file_name }}" alt="Generic placeholder image">
                                         <div class="media-body">
                                         <h5 class="my-0">{{ $comment->author->name }}</h5>
-                                       {{ $comment->comment }}
+                                        <p class="mb-0"> {{ $comment->comment }}</p>
+                                        <small class="text-muted">
+                                            {{ $comment->created_at->diffForHumans() }}
+                                            @if ($comment->user_id == session('user_id') || session('role') == 'admin' || $post->author->id == session('user_id'))                                                 
+                                                <a onclick="javascript: return confirm('Are you sure to delete?')" class="ml-3" href="{{ route('deletecomment', $comment->id) }}">Delete</a>
+                                            @endif
+                                            
+                                        </small>
                                         </div>
                                     </div>
                                 @endforeach

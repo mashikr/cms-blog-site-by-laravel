@@ -1,7 +1,7 @@
 @extends('base')
 
     @section('content')
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" style="height: 83vh">
             <div class="col-sm-10 col-md-8 col-lg-6 my-4">
                         
                 <div class="card mt-2 shadow">
@@ -28,6 +28,13 @@
                         </form>
                     </div>
                 </div>
+
+                @if (session()->has('login_warning'))
+                    <div class="alert alert-danger mt-3 text-center">
+                        <strong>{{ session('login_warning') }}</strong>
+                  </div>
+                @endif
+
             </div>
         </div>
 

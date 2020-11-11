@@ -9,16 +9,16 @@
     
     @section('content')
         <div class="row mt-4 justify-content-center">
-            <div class="col-8 col-sm-6 col-md-4 p-2">
+            <div class="col-8 col-sm-6 col-md-4 col-xl-3 p-2">
                 <div class="card bg-primary text-light">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-3">
-                                <i class="fas fa-columns fa-5x"></i>
+                                <i class="fas fa-columns fa-3x"></i>
                             </div>
-                            <div class="col-4 offset-5 text-center">
-                                <div class="display-4">8</div>
-                                <div class='lead'>Posts</div>
+                            <div class="col-5 offset-4 text-center">
+                                <div class="h3 mb-0">{{ $stat['posts_count'] }}</div>
+                                <p class=''>Posts</p>
                             </div>
                         </div>
                     </div>
@@ -33,16 +33,16 @@
             </div>
 
             @if (session()->get('role') == 'admin')
-                <div class="col-8 col-sm-6 col-md-4 p-2">
+                <div class="col-8 col-sm-6 col-md-4 col-xl-3 p-2">
                     <div class="card bg-secondary text-light">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-3">
-                                    <i class="far fa-file-alt fa-5x"></i>
+                                    <i class="far fa-file-alt fa-3x"></i>
                                 </div>
-                                <div class="col-6 offset-3 text-center">
-                                    <div class="display-4">8</div>
-                                    <div class='lead'>Own Posts</div>
+                                <div class="col-7 offset-2 text-center">
+                                    <div class="h3 mb-0">{{ $stat['own_posts_count'] }}</div>
+                                    <p>Own Posts</p>
                                 </div>
                             </div>
                         </div>
@@ -57,16 +57,16 @@
                 </div>
             @endif
 
-            <div class="col-8 col-sm-6 col-md-4 p-2">
+            <div class="col-8 col-sm-6 col-md-4 col-xl-3 p-2">
                 <div class="card bg-success text-light">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-3">
-                                <i class="far fa-comments fa-5x"></i>
+                                <i class="far fa-comments fa-3x"></i>
                             </div>
-                            <div class="col-6 offset-3 text-center">
-                                <div class="display-4">8</div>
-                                <div class='lead'>Comments</div>
+                            <div class="col-7 offset-2 text-center">
+                                <div class="h3 mb-0">{{ $stat['comments_count'] }}</div>
+                                    <p>Comments</p>
                             </div>
                         </div>
                     </div>
@@ -80,16 +80,16 @@
                 </div>
             </div>
 
-            <div class="col-8 col-sm-6 col-md-4 p-2">
+            <div class="col-8 col-sm-6 col-md-4 col-xl-3 p-2">
                 <div class="card bg-warning text-light">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-3">
-                                <i class="fas fa-list-ul fa-5x"></i>
+                                <i class="fas fa-list-ul fa-3x"></i>
                             </div>
-                            <div class="col-6 offset-3 text-center">
-                                <div class="display-4">8</div>
-                                <div class='lead'>Categories</div>
+                            <div class="col-7 offset-2 text-center">
+                                <div class="h3 mb-0">{{ $stat['categories_count'] }}</div>
+                                <p>Categories</p>
                             </div>
                         </div>
                     </div>
@@ -104,16 +104,16 @@
             </div>
 
             @if (session()->get('role') == 'admin')
-                <div class="col-8 col-sm-6 col-md-4 p-2">
+                <div class="col-8 col-sm-6 col-md-4 col-xl-3 p-2">
                     <div class="card bg-danger text-light">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-3">
-                                    <i class="fas fa-user fa-5x"></i>
+                                    <i class="fas fa-user fa-3x"></i>
                                 </div>
                                 <div class="col-6 offset-3 text-center">
-                                    <div class="display-4">8</div>
-                                    <div class='lead'>Users</div>
+                                    <div class="h3 mb-0">{{ $stat['users_count'] }}</div>
+                                    <p>Users</p>
                                 </div>
                             </div>
                         </div>
@@ -136,12 +136,18 @@
                         google.charts.setOnLoadCallback(drawChart);
                         function drawChart() {
                         var data = google.visualization.arrayToDataTable([
-                            ["Element", "Density", { role: "style" } ],
-                            ["Copper", 8.94, "#b87333"],
-                            ["Silver", 10.49, "silver"],
-                            ["Gold", 19.30, "gold"],
-                            ["Platinum", 21.45, "color: #e5e4e2"],
-                            ["Platinum", 21.45, "color: #e5e4e2"]
+                            ["Element", "Amount", { role: "style" } ],
+                            ["Posts", {{ $stat['posts_count'] }}, "#007bff"],
+                            @if (session()->get('role') == 'admin')
+                                ["Own Posts", {{ $stat['own_posts_count'] }}, "#6c757d"],
+                            @endif
+                            
+                            ["Comments", {{ $stat['comments_count'] }}, "#28a745"],
+                            ["Categories", {{ $stat['categories_count'] }}, "#ffc107"],
+                            @if (session()->get('role') == 'admin')
+                                ["Users", {{ $stat['users_count'] }}, "dc3545"]
+                            @endif
+                           
                         ]);
 
                         var view = new google.visualization.DataView(data);

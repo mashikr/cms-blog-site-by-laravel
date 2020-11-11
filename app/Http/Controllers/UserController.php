@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Photo;
+use App\Models\Post;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +15,17 @@ class UserController extends Controller
 {
     public function index() {
         $user = User::where('email', session('user_email'))->first();
-        return view('User.index', ['user' => $user]);
+
+        $stat['posts_count'] = Post::where('user_id', session('user_id'))->count();
+        if (session('role') == 'admin') {
+            $stat['own_posts_count'] = $stat['posts_count'];
+            $stat['posts_count'] = Post::all()->count();
+            $stat['users_count'] = User::where('role_id', 2)->count();
+        }
+        $stat['comments_count'] = Comment::where('user_id', session('user_id'))->count();
+        $stat['categories_count'] = Comment::all()->count();
+        
+        return view('User.index', ['user' => $user, 'stat' => $stat]);
     }
 
     public function profile() {
@@ -92,7 +103,7 @@ class UserController extends Controller
     }
 
     public function comments() {
-        $comments = Comment::where('user_id', session('user_id'))->get();
+        $comments = Comment::where('user_id', session('user_id'))->orderBy('id', 'desc')->paginate(10);
         return view('User.comments', compact('comments'));
     }
 }

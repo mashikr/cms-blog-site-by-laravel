@@ -17,6 +17,7 @@ class checkLogin
     public function handle(Request $request, Closure $next)
     {
         if (!session()->has('user_email') || !session()->has('role')) {
+            session()->flash('login_warning', 'Please login first!');
             return redirect('login');
         }
 
